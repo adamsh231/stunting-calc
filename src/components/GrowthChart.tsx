@@ -90,7 +90,6 @@ export default function GrowthChart({ data, childPoint, xKey, yLabel, title, gen
 
     const childData = useMemo(() => {
       if (!childPoint) return [];
-      // Mencari index terdekat agar titik muncul di posisi yang benar pada Category Scale
       let closestIndex = 0;
       let minDiff = Math.abs(data[0][xKey] - childPoint.x);
       
@@ -102,8 +101,18 @@ export default function GrowthChart({ data, childPoint, xKey, yLabel, title, gen
         }
       }
 
+      // Simpan metadata referensi untuk tooltip
+      const refData = data[closestIndex];
       const pointData = new Array(data.length).fill(null);
-      pointData[closestIndex] = childPoint.y;
+      pointData[closestIndex] = {
+        y: childPoint.y,
+        ref: {
+          median: refData.median,
+          sd1pos: refData.sd1pos,
+          sd1neg: refData.sd1neg,
+          val: childPoint.y
+        }
+      };
       return pointData;
     }, [data, childPoint, xKey]);
 
@@ -200,19 +209,38 @@ export default function GrowthChart({ data, childPoint, xKey, yLabel, title, gen
       },
       tooltip: {
         enabled: true,
-        backgroundColor: 'rgba(15, 23, 42, 0.9)',
-        padding: 12,
-        cornerRadius: 12,
+        backgroundColor: 'rgba(15, 23, 42, 0.95)',
+        padding: 16,
+        cornerRadius: 16,
+        titleFont: { size: 14, weight: 'bold' },
+        bodyFont: { size: 12 },
         callbacks: {
-          label: function(context) {
-            let label = context.dataset.label || '';
-            if (label) {
-              label += ': ';
+          label: function(context: any) {
+            const datasetLabel = context.dataset.label || '';
+            const value = context.parsed.y;
+            
+            if (datasetLabel === 'Posisi Anak') {
+              const rawData: any = context.dataset.data[context.dataIndex];
+              const { median, sd1pos, sd1neg, val } = rawData.ref;
+              
+              const isAbove = val > median;
+              const sdRef = isAbove ? sd1pos : sd1neg;
+              const diff = (val - median).toFixed(2);
+              const sdDiff = isAbove ? (sd1pos - median).toFixed(2) : (median - sd1neg).toFixed(2);
+              const zScore = (parseFloat(diff) / parseFloat(sdDiff)).toFixed(2);
+
+              return [
+                `📍 Status: ${zScore} SD`,
+                `──────────────────`,
+                `• Nilai: ${val} ${yLabel.includes('Berat') ? 'kg' : 'cm'}`,
+                `• Median: ${median}`,
+                `• SD Ref: ${sdRef}`,
+                `──────────────────`,
+                `Rumus: (${val} - ${median}) / ${sdDiff}`,
+                `Hasil: ${zScore}`
+              ];
             }
-            if (context.parsed.y !== null) {
-              label += context.parsed.y.toFixed(2);
-            }
-            return label;
+            return `${datasetLabel}: ${value.toFixed(2)}`;
           }
         }
       },
