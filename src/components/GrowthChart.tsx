@@ -34,6 +34,41 @@ interface GrowthChartProps {
   gender: 'male' | 'female';
 }
 
+const childPointPlugin = {
+  id: 'childPointPlugin',
+  afterDatasetsDraw(chart: any) {
+    const { ctx, chartArea: { top, bottom, left, right }, scales: { x, y } } = chart;
+    const dataset = chart.data.datasets[0];
+    
+    if (dataset.label === 'Posisi Anak') {
+      const meta = chart.getDatasetMeta(0);
+      meta.data.forEach((point: any) => {
+        if (point.skip === false && point.y !== undefined) {
+          ctx.save();
+          
+          // Garis Vertikal
+          ctx.beginPath();
+          ctx.setLineDash([5, 5]);
+          ctx.moveTo(point.x, point.y);
+          ctx.lineTo(point.x, bottom);
+          ctx.lineWidth = 1.5;
+          ctx.strokeStyle = dataset.borderColor + '88';
+          ctx.stroke();
+
+          // Garis Horizontal
+          ctx.beginPath();
+          ctx.moveTo(point.x, point.y);
+          ctx.lineTo(left, point.y);
+          ctx.stroke();
+
+          // Label nilai di titik (opsional tapi keren)
+          ctx.restore();
+        }
+      });
+    }
+  }
+};
+
 function getValueForZ(lms: { l: number; m: number; s: number }, z: number): number {
   const { l, m, s } = lms;
   if (l === 0) {
@@ -53,9 +88,24 @@ export default function GrowthChart({ data, childPoint, xKey, yLabel, title, gen
     const p2sd = data.map(d => getValueForZ(d, 2));
     const p3sd = data.map(d => getValueForZ(d, 3));
 
-    const childData = childPoint 
-      ? data.map(d => (d[xKey] === childPoint.x ? childPoint.y : null))
-      : [];
+    const childData = useMemo(() => {
+      if (!childPoint) return [];
+      // Mencari index terdekat agar titik muncul di posisi yang benar pada Category Scale
+      let closestIndex = 0;
+      let minDiff = Math.abs(data[0][xKey] - childPoint.x);
+      
+      for (let i = 1; i < data.length; i++) {
+        const diff = Math.abs(data[i][xKey] - childPoint.x);
+        if (diff < minDiff) {
+          minDiff = diff;
+          closestIndex = i;
+        }
+      }
+
+      const pointData = new Array(data.length).fill(null);
+      pointData[closestIndex] = childPoint.y;
+      return pointData;
+    }, [data, childPoint, xKey]);
 
     const pointColor = gender === 'male' ? '#2563eb' : '#db2777';
 
@@ -63,12 +113,13 @@ export default function GrowthChart({ data, childPoint, xKey, yLabel, title, gen
       labels,
       datasets: [
         {
-          label: 'Anak',
+          label: 'Posisi Anak',
           data: childData,
           borderColor: pointColor,
-          backgroundColor: pointColor,
-          pointRadius: 8,
-          pointHoverRadius: 10,
+          backgroundColor: '#fff',
+          pointBorderWidth: 4,
+          pointRadius: 10,
+          pointHoverRadius: 12,
           showLine: false,
           zIndex: 10,
         },
@@ -152,6 +203,18 @@ export default function GrowthChart({ data, childPoint, xKey, yLabel, title, gen
         backgroundColor: 'rgba(15, 23, 42, 0.9)',
         padding: 12,
         cornerRadius: 12,
+        callbacks: {
+          label: function(context) {
+            let label = context.dataset.label || '';
+            if (label) {
+              label += ': ';
+            }
+            if (context.parsed.y !== null) {
+              label += context.parsed.y.toFixed(2);
+            }
+            return label;
+          }
+        }
       },
     },
     scales: {
@@ -182,7 +245,12 @@ export default function GrowthChart({ data, childPoint, xKey, yLabel, title, gen
   return (
     <div className="w-full h-full min-h-[300px] flex flex-col">
       <div className="flex-1 w-full relative">
-        <Line ref={chartRef} data={chartData} options={options} />
+        <Line 
+          ref={chartRef} 
+          data={chartData} 
+          options={options} 
+          plugins={[childPointPlugin]} 
+        />
       </div>
     </div>
   );
