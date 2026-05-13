@@ -43,7 +43,7 @@ const childPointPlugin = {
     if (dataset.label === 'Posisi Anak') {
       const meta = chart.getDatasetMeta(0);
       meta.data.forEach((point: any) => {
-        if (point.skip === false && point.y !== undefined) {
+        if (point && !point.skip && point.y !== undefined) {
           ctx.save();
           
           // Garis Vertikal
@@ -101,18 +101,8 @@ export default function GrowthChart({ data, childPoint, xKey, yLabel, title, gen
         }
       }
 
-      // Simpan metadata referensi untuk tooltip
-      const refData = data[closestIndex];
       const pointData = new Array(data.length).fill(null);
-      pointData[closestIndex] = {
-        y: childPoint.y,
-        ref: {
-          median: refData.median,
-          sd1pos: refData.sd1pos,
-          sd1neg: refData.sd1neg,
-          val: childPoint.y
-        }
-      };
+      pointData[closestIndex] = childPoint.y;
       return pointData;
     }, [data, childPoint, xKey]);
 
@@ -219,9 +209,10 @@ export default function GrowthChart({ data, childPoint, xKey, yLabel, title, gen
             const datasetLabel = context.dataset.label || '';
             const value = context.parsed.y;
             
-            if (datasetLabel === 'Posisi Anak') {
-              const rawData: any = context.dataset.data[context.dataIndex];
-              const { median, sd1pos, sd1neg, val } = rawData.ref;
+            if (datasetLabel === 'Posisi Anak' && value !== null) {
+              const refData = data[context.dataIndex];
+              const { median, sd1pos, sd1neg } = refData;
+              const val = value;
               
               const isAbove = val > median;
               const sdRef = isAbove ? sd1pos : sd1neg;
