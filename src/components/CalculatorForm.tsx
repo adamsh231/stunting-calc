@@ -73,65 +73,65 @@ export default function CalculatorForm() {
   };
 
   return (
-    <div className="flex flex-col lg:flex-row gap-8 items-start max-w-[1400px] mx-auto p-4 md:p-0">
+    <div className="flex flex-col lg:flex-row gap-6 md:gap-8 items-start max-w-[1400px] mx-auto p-2 md:p-0">
       {/* Input Form Column */}
-      <div className="w-full lg:w-[400px] flex-shrink-0 p-8 bg-white dark:bg-slate-900 rounded-[2rem] shadow-2xl space-y-8 text-slate-800 dark:text-slate-200 border border-slate-100 dark:border-slate-800 transition-all duration-500 overflow-hidden relative">
-        <div className="absolute top-0 left-0 w-full h-2 bg-gradient-to-r from-teal-500 via-blue-500 to-indigo-500"></div>
+      <div className="w-full lg:w-[380px] flex-shrink-0 p-5 md:p-8 bg-white dark:bg-slate-900 rounded-[1.5rem] md:rounded-[2rem] shadow-xl space-y-6 md:space-y-8 text-slate-800 dark:text-slate-200 border border-slate-100 dark:border-slate-800 transition-all duration-500 overflow-hidden relative">
+        <div className="absolute top-0 left-0 w-full h-1.5 bg-gradient-to-r from-teal-500 via-blue-500 to-indigo-500"></div>
         
-        <div className="space-y-2">
-          <h2 className="text-2xl font-black tracking-tight text-slate-900 dark:text-slate-50">Input Data</h2>
-          <p className="text-slate-500 dark:text-slate-400 font-medium text-sm">Lengkapi data untuk analisis gizi</p>
+        <div className="space-y-1 md:space-y-2">
+          <h2 className="text-xl md:text-2xl font-black tracking-tight text-slate-900 dark:text-slate-50">Input Data</h2>
+          <p className="text-slate-500 dark:text-slate-400 font-medium text-[11px] md:text-sm">Lengkapi data untuk analisis gizi</p>
         </div>
         
-        <div className="space-y-6">
+        <div className="space-y-5 md:space-y-6">
           <div>
-            <label className="block text-xs font-bold uppercase tracking-widest mb-3 text-slate-400 dark:text-slate-500">Jenis Kelamin</label>
-            <div className="grid grid-cols-2 gap-3">
+            <label className="block text-[9px] md:text-xs font-bold uppercase tracking-widest mb-2 md:mb-3 text-slate-400 dark:text-slate-500">Jenis Kelamin</label>
+            <div className="grid grid-cols-2 gap-2 md:gap-3">
               <button
                 type="button"
                 onClick={(e) => { e.preventDefault(); setGender('male'); }}
-                className={`flex items-center justify-center gap-2 p-3 rounded-xl border-2 transition-all duration-200 cursor-pointer relative z-10 ${
+                className={`flex items-center justify-center gap-2 p-2.5 md:p-3 rounded-xl border-2 transition-all duration-200 cursor-pointer relative z-10 ${
                   gender === 'male' 
                     ? 'bg-blue-50 border-blue-600 text-blue-600 dark:bg-blue-900/20 dark:border-blue-500 dark:text-blue-400 shadow-md' 
                     : 'bg-white border-slate-100 text-slate-500 hover:border-slate-300 dark:bg-slate-800 dark:border-slate-700 dark:text-slate-400 dark:hover:border-slate-600'
                 }`}
               >
-                <span className="text-sm font-black pointer-events-none">Laki-laki</span>
+                <span className="text-[11px] md:text-sm font-black pointer-events-none">Laki-laki</span>
               </button>
               <button
                 type="button"
                 onClick={(e) => { e.preventDefault(); setGender('female'); }}
-                className={`flex items-center justify-center gap-2 p-3 rounded-xl border-2 transition-all duration-200 cursor-pointer relative z-10 ${
+                className={`flex items-center justify-center gap-2 p-2.5 md:p-3 rounded-xl border-2 transition-all duration-200 cursor-pointer relative z-10 ${
                   gender === 'female' 
                     ? 'bg-pink-50 border-pink-600 text-pink-600 dark:bg-pink-900/20 dark:border-pink-500 dark:text-pink-400 shadow-md' 
                     : 'bg-white border-slate-100 text-slate-500 hover:border-slate-300 dark:bg-slate-800 dark:border-slate-700 dark:text-slate-400 dark:hover:border-slate-600'
                 }`}
               >
-                <span className="text-sm font-black pointer-events-none">Perempuan</span>
+                <span className="text-[11px] md:text-sm font-black pointer-events-none">Perempuan</span>
               </button>
             </div>
           </div>
 
           <div className="space-y-4">
             <div>
-              <label className="block text-xs font-bold uppercase tracking-widest mb-2 text-slate-400 dark:text-slate-500">Umur (Bulan)</label>
+              <label className="block text-[9px] md:text-xs font-bold uppercase tracking-widest mb-1.5 md:mb-2 text-slate-400 dark:text-slate-500">Umur (Bulan)</label>
               <div className="relative">
                 <input
                   type="number"
                   value={ageMonths}
                   onChange={(e) => setAgeMonths(e.target.value)}
                   placeholder="0 - 60"
-                  className="w-full pl-4 pr-12 py-3 border border-slate-200 dark:border-slate-700 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500 bg-white dark:bg-slate-800 text-slate-900 dark:text-slate-100 placeholder-slate-400 dark:placeholder-slate-500 transition-all shadow-sm"
+                  className="w-full pl-4 pr-10 py-2.5 md:py-3 border border-slate-200 dark:border-slate-700 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500 bg-white dark:bg-slate-800 text-slate-900 dark:text-slate-100 placeholder-slate-400 dark:placeholder-slate-500 text-sm md:text-base transition-all shadow-sm"
                   min="0"
                   max="60"
                 />
-                <span className="absolute right-4 top-1/2 -translate-y-1/2 text-xs text-slate-400 font-bold">Mo</span>
+                <span className="absolute right-4 top-1/2 -translate-y-1/2 text-[10px] text-slate-400 font-bold">Mo</span>
               </div>
             </div>
 
-            <div className="grid grid-cols-2 gap-4">
+            <div className="grid grid-cols-2 gap-3 md:gap-4">
               <div>
-                <label className="block text-xs font-bold uppercase tracking-widest mb-2 text-slate-400 dark:text-slate-500">Berat</label>
+                <label className="block text-[9px] md:text-xs font-bold uppercase tracking-widest mb-1.5 md:mb-2 text-slate-400 dark:text-slate-500">Berat</label>
                 <div className="relative">
                   <input
                     type="number"
@@ -139,14 +139,14 @@ export default function CalculatorForm() {
                     value={weightKg}
                     onChange={(e) => setWeightKg(e.target.value)}
                     placeholder="0.0"
-                    className="w-full pl-4 pr-10 py-3 border border-slate-200 dark:border-slate-700 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500 bg-white dark:bg-slate-800 text-slate-900 dark:text-slate-100 placeholder-slate-400 dark:placeholder-slate-500 transition-all shadow-sm"
+                    className="w-full pl-4 pr-9 py-2.5 md:py-3 border border-slate-200 dark:border-slate-700 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500 bg-white dark:bg-slate-800 text-slate-900 dark:text-slate-100 placeholder-slate-400 dark:placeholder-slate-500 text-sm md:text-base transition-all shadow-sm"
                   />
-                  <span className="absolute right-4 top-1/2 -translate-y-1/2 text-xs text-slate-400 font-bold">kg</span>
+                  <span className="absolute right-4 top-1/2 -translate-y-1/2 text-[10px] text-slate-400 font-bold">kg</span>
                 </div>
               </div>
 
               <div>
-                <label className="block text-xs font-bold uppercase tracking-widest mb-2 text-slate-400 dark:text-slate-500">Tinggi</label>
+                <label className="block text-[9px] md:text-xs font-bold uppercase tracking-widest mb-1.5 md:mb-2 text-slate-400 dark:text-slate-500">Tinggi</label>
                 <div className="relative">
                   <input
                     type="number"
@@ -154,9 +154,9 @@ export default function CalculatorForm() {
                     value={heightCm}
                     onChange={(e) => setHeightCm(e.target.value)}
                     placeholder="0.0"
-                    className="w-full pl-4 pr-10 py-3 border border-slate-200 dark:border-slate-700 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500 bg-white dark:bg-slate-800 text-slate-900 dark:text-slate-100 placeholder-slate-400 dark:placeholder-slate-500 transition-all shadow-sm"
+                    className="w-full pl-4 pr-9 py-2.5 md:py-3 border border-slate-200 dark:border-slate-700 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500 bg-white dark:bg-slate-800 text-slate-900 dark:text-slate-100 placeholder-slate-400 dark:placeholder-slate-500 text-sm md:text-base transition-all shadow-sm"
                   />
-                  <span className="absolute right-4 top-1/2 -translate-y-1/2 text-xs text-slate-400 font-bold">cm</span>
+                  <span className="absolute right-4 top-1/2 -translate-y-1/2 text-[10px] text-slate-400 font-bold">cm</span>
                 </div>
               </div>
             </div>
@@ -166,7 +166,7 @@ export default function CalculatorForm() {
             type="button"
             onClick={handleCalculate}
             disabled={isCalculating || !ageMonths || !weightKg || !heightCm}
-            className={`w-full py-4 rounded-2xl font-black text-lg transition-all flex items-center justify-center gap-3 shadow-lg hover:shadow-blue-500/20 active:scale-[0.98] cursor-pointer relative z-10 ${
+            className={`w-full py-3.5 md:py-4 rounded-xl md:rounded-2xl font-black text-base md:text-lg transition-all flex items-center justify-center gap-3 shadow-lg hover:shadow-blue-500/20 active:scale-[0.98] cursor-pointer relative z-10 ${
               isCalculating || !ageMonths || !weightKg || !heightCm
                 ? 'bg-slate-100 text-slate-400 cursor-not-allowed dark:bg-slate-800 dark:text-slate-600'
                 : 'bg-blue-600 text-white hover:bg-blue-700 dark:bg-blue-500 dark:hover:bg-blue-400'
@@ -174,7 +174,7 @@ export default function CalculatorForm() {
           >
             {isCalculating ? (
               <>
-                <div className="w-5 h-5 border-3 border-white/30 border-t-white rounded-full animate-spin"></div>
+                <div className="w-4 h-4 md:w-5 md:h-5 border-3 border-white/30 border-t-white rounded-full animate-spin"></div>
                 <span>Menghitung...</span>
               </>
             ) : (
@@ -185,38 +185,38 @@ export default function CalculatorForm() {
       </div>
 
       {/* Results Column */}
-      <div className="flex-1 w-full space-y-8">
+      <div className="flex-1 w-full space-y-6 md:space-y-8">
         {calculatedResults ? (
-          <div className="animate-in fade-in slide-in-from-right-8 duration-700 space-y-8 pb-12">
-            <div className="bg-white dark:bg-slate-900 p-8 rounded-[2rem] shadow-xl border border-slate-100 dark:border-slate-800 relative overflow-hidden">
-              <div className="flex flex-col md:flex-row items-center justify-between gap-4 mb-8">
-                <h3 className="text-2xl font-black text-slate-900 dark:text-slate-50 flex items-center">
-                  <span className="w-8 h-8 bg-teal-500 text-white rounded-lg flex items-center justify-center mr-3 text-sm italic font-black">i</span>
+          <div className="animate-in fade-in slide-in-from-bottom-4 md:slide-in-from-right-8 duration-700 space-y-6 md:space-y-8 pb-12">
+            <div className="bg-white dark:bg-slate-900 p-5 md:p-8 rounded-[1.5rem] md:rounded-[2rem] shadow-xl border border-slate-100 dark:border-slate-800 relative overflow-hidden">
+              <div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-3 mb-6 md:mb-8">
+                <h3 className="text-xl md:text-2xl font-black text-slate-900 dark:text-slate-50 flex items-center">
+                  <span className="w-6 h-6 md:w-8 md:h-8 bg-teal-500 text-white rounded-lg flex items-center justify-center mr-2 md:mr-3 text-[10px] md:text-sm italic font-black">i</span>
                   Hasil Analisis Gizi
                 </h3>
-                <span className="inline-flex items-center px-4 py-1.5 rounded-full text-xs font-black bg-slate-50 dark:bg-slate-800 text-slate-500 dark:text-slate-400 border border-slate-100 dark:border-slate-700 uppercase">
+                <span className="inline-flex items-center px-3 py-1 rounded-full text-[9px] font-black bg-slate-50 dark:bg-slate-800 text-slate-500 dark:text-slate-400 border border-slate-100 dark:border-slate-700 uppercase">
                   STANDAR KEMENKES 2020
                 </span>
               </div>
 
-              <div className="bg-slate-50 dark:bg-slate-950 p-8 rounded-[1.5rem] border-2 border-slate-100 dark:border-slate-800 shadow-inner mb-12">
+              <div className="bg-slate-50 dark:bg-slate-950 p-4 md:p-8 rounded-[1.2rem] md:rounded-[1.5rem] border-2 border-slate-100 dark:border-slate-800 shadow-inner mb-8 md:mb-12">
                 <DynamicSketch status={calculatedResults.wfh.status} gender={calculatedResults.gender} />
               </div>
               
-              <div className="grid grid-cols-1 gap-12">
+              <div className="grid grid-cols-1 gap-6 md:gap-12">
                 {/* WFA Chart and Result */}
-                <div className="bg-white dark:bg-slate-800/40 p-6 rounded-[1.5rem] border-2 border-slate-100 dark:border-slate-700 shadow-sm transition-all hover:shadow-md">
-                  <div className="mb-6">
-                    <p className="text-[10px] font-black uppercase tracking-[0.2em] text-slate-400 dark:text-slate-500 mb-2">BB/U (Berat / Umur)</p>
+                <div className="bg-white dark:bg-slate-800/40 p-4 md:p-6 rounded-[1.2rem] md:rounded-[1.5rem] border-2 border-slate-100 dark:border-slate-700 shadow-sm transition-all hover:shadow-md">
+                  <div className="mb-4 md:mb-6">
+                    <p className="text-[9px] md:text-[10px] font-black uppercase tracking-[0.2em] text-slate-400 dark:text-slate-500 mb-1 md:mb-2">BB/U (Berat / Umur)</p>
                     <div className="flex justify-between items-start">
-                      <h4 className="text-xl font-black text-slate-900 dark:text-slate-100 leading-tight">{calculatedResults.wfa.status}</h4>
+                      <h4 className="text-lg md:text-xl font-black text-slate-900 dark:text-slate-100 leading-tight">{calculatedResults.wfa.status}</h4>
                       <div className="text-right">
-                        <span className="text-2xl font-black text-blue-600 dark:text-blue-400">{calculatedResults.wfa.z.toFixed(2)}</span>
-                        <p className="text-[10px] font-bold text-slate-400 dark:text-slate-500 uppercase">Z-Score</p>
+                        <span className="text-xl md:text-2xl font-black text-blue-600 dark:text-blue-400">{calculatedResults.wfa.z.toFixed(2)}</span>
+                        <p className="text-[8px] md:text-[10px] font-bold text-slate-400 dark:text-slate-500 uppercase">Z-Score</p>
                       </div>
                     </div>
                   </div>
-                  <div className="h-[300px] w-full">
+                  <div className="h-[250px] md:h-[300px] w-full">
                     <GrowthChart 
                       title="Grafik Berat menurut Umur"
                       data={calculatedResults.charts.wfa}
@@ -229,18 +229,18 @@ export default function CalculatorForm() {
                 </div>
 
                 {/* HFA Chart and Result */}
-                <div className="bg-white dark:bg-slate-800/40 p-6 rounded-[1.5rem] border-2 border-slate-100 dark:border-slate-700 shadow-sm transition-all hover:shadow-md">
-                  <div className="mb-6">
-                    <p className="text-[10px] font-black uppercase tracking-[0.2em] text-slate-400 dark:text-slate-500 mb-2">TB/U (Tinggi / Umur)</p>
+                <div className="bg-white dark:bg-slate-800/40 p-4 md:p-6 rounded-[1.2rem] md:rounded-[1.5rem] border-2 border-slate-100 dark:border-slate-700 shadow-sm transition-all hover:shadow-md">
+                  <div className="mb-4 md:mb-6">
+                    <p className="text-[9px] md:text-[10px] font-black uppercase tracking-[0.2em] text-slate-400 dark:text-slate-500 mb-1 md:mb-2">TB/U (Tinggi / Umur)</p>
                     <div className="flex justify-between items-start">
-                      <h4 className="text-xl font-black text-slate-900 dark:text-slate-100 leading-tight">{calculatedResults.hfa.status}</h4>
+                      <h4 className="text-lg md:text-xl font-black text-slate-900 dark:text-slate-100 leading-tight">{calculatedResults.hfa.status}</h4>
                       <div className="text-right">
-                        <span className="text-2xl font-black text-blue-600 dark:text-blue-400">{calculatedResults.hfa.z.toFixed(2)}</span>
-                        <p className="text-[10px] font-bold text-slate-400 dark:text-slate-500 uppercase">Z-Score</p>
+                        <span className="text-xl md:text-2xl font-black text-blue-600 dark:text-blue-400">{calculatedResults.hfa.z.toFixed(2)}</span>
+                        <p className="text-[8px] md:text-[10px] font-bold text-slate-400 dark:text-slate-500 uppercase">Z-Score</p>
                       </div>
                     </div>
                   </div>
-                  <div className="h-[300px] w-full">
+                  <div className="h-[250px] md:h-[300px] w-full">
                     <GrowthChart 
                       title="Grafik Tinggi menurut Umur"
                       data={calculatedResults.charts.hfa}
@@ -253,18 +253,18 @@ export default function CalculatorForm() {
                 </div>
 
                 {/* WFH Chart and Result */}
-                <div className="bg-white dark:bg-slate-800/40 p-6 rounded-[1.5rem] border-2 border-slate-100 dark:border-slate-700 shadow-sm transition-all hover:shadow-md">
-                  <div className="mb-6">
-                    <p className="text-[10px] font-black uppercase tracking-[0.2em] text-slate-400 dark:text-slate-500 mb-2">BB/TB (Berat / Tinggi)</p>
+                <div className="bg-white dark:bg-slate-800/40 p-4 md:p-6 rounded-[1.2rem] md:rounded-[1.5rem] border-2 border-slate-100 dark:border-slate-700 shadow-sm transition-all hover:shadow-md">
+                  <div className="mb-4 md:mb-6">
+                    <p className="text-[9px] md:text-[10px] font-black uppercase tracking-[0.2em] text-slate-400 dark:text-slate-500 mb-1 md:mb-2">BB/TB (Berat / Tinggi)</p>
                     <div className="flex justify-between items-start">
-                      <h4 className="text-xl font-black text-slate-900 dark:text-slate-100 leading-tight">{calculatedResults.wfh.status}</h4>
+                      <h4 className="text-lg md:text-xl font-black text-slate-900 dark:text-slate-100 leading-tight">{calculatedResults.wfh.status}</h4>
                       <div className="text-right">
-                        <span className="text-2xl font-black text-blue-600 dark:text-blue-400">{calculatedResults.wfh.z.toFixed(2)}</span>
-                        <p className="text-[10px] font-bold text-slate-400 dark:text-slate-500 uppercase">Z-Score</p>
+                        <span className="text-xl md:text-2xl font-black text-blue-600 dark:text-blue-400">{calculatedResults.wfh.z.toFixed(2)}</span>
+                        <p className="text-[8px] md:text-[10px] font-bold text-slate-400 dark:text-slate-500 uppercase">Z-Score</p>
                       </div>
                     </div>
                   </div>
-                  <div className="h-[300px] w-full">
+                  <div className="h-[250px] md:h-[300px] w-full">
                     <GrowthChart 
                       title="Grafik Berat menurut Tinggi"
                       data={calculatedResults.charts.wfh}
@@ -279,9 +279,9 @@ export default function CalculatorForm() {
             </div>
           </div>
         ) : (
-          <div className="h-full min-h-[400px] flex flex-col items-center justify-center p-12 bg-white dark:bg-slate-900 rounded-[2rem] border-2 border-dashed border-slate-200 dark:border-slate-800 text-center">
-            <h4 className="text-xl font-black text-slate-400 dark:text-slate-600 mb-2">Menunggu Data</h4>
-            <p className="text-slate-400 dark:text-slate-600 max-w-xs font-medium">Klik tombol "Hitung" untuk melihat analisis lengkap.</p>
+          <div className="h-full min-h-[300px] md:min-h-[400px] flex flex-col items-center justify-center p-8 md:p-12 bg-white dark:bg-slate-900 rounded-[1.5rem] md:rounded-[2rem] border-2 border-dashed border-slate-200 dark:border-slate-800 text-center">
+            <h4 className="text-lg md:text-xl font-black text-slate-400 dark:text-slate-600 mb-2">Menunggu Data</h4>
+            <p className="text-slate-400 dark:text-slate-600 max-w-xs font-medium text-xs md:text-sm">Klik tombol "Hitung" untuk melihat analisis lengkap.</p>
           </div>
         )}
       </div>

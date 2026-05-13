@@ -239,22 +239,22 @@ export default function GrowthChart({ data, childPoint, xKey, yLabel, title, gen
     scales: {
       x: {
         grid: { color: 'rgba(226, 232, 240, 0.2)' },
-        ticks: { color: '#94a3b8', font: { size: 10, weight: 'bold' } },
+        ticks: { color: '#94a3b8', font: { size: 9, weight: 'bold' } },
         title: {
           display: true,
-          text: xKey === 'day' ? 'Umur (Hari)' : 'Tinggi (cm)',
+          text: xKey === 'day' ? 'Umur (Bulan)' : 'Tinggi (cm)',
           color: '#64748b',
-          font: { size: 10, weight: 'bold' }
+          font: { size: 9, weight: 'bold' }
         }
       },
       y: {
         grid: { color: 'rgba(226, 232, 240, 0.2)' },
-        ticks: { color: '#94a3b8', font: { size: 10, weight: 'bold' } },
+        ticks: { color: '#94a3b8', font: { size: 9, weight: 'bold' } },
         title: {
           display: true,
           text: yLabel,
           color: '#64748b',
-          font: { size: 10, weight: 'bold' }
+          font: { size: 9, weight: 'bold' }
         }
       },
     },
