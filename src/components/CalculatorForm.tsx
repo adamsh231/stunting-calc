@@ -1,14 +1,14 @@
 'use client';
 
-import React, { useState } from 'react';
-import {
-  calculateZScore,
-  findGrowthParameters,
-  getStatusWFA,
-  getStatusHFA,
-  getStatusWFH
+import React, { useState, useEffect } from 'react';
+import { 
+  calculateZScore, 
+  findGrowthParameters, 
+  getStatusWFA, 
+  getStatusHFA, 
+  getStatusWFH 
 } from '@/lib/growth-utils';
-import { wfa_boys, hfa_boys, wfh_boys, wfa_girls, hfa_girls, wfh_girls } from '@/lib/who-data';
+import { loadGrowthData } from '@/lib/who-data';
 import GrowthChart from './GrowthChart';
 import DynamicSketch from './DynamicSketch';
 
@@ -21,9 +21,17 @@ export default function CalculatorForm() {
   const [heightCm, setHeightCm] = useState<string>('');
   const [isCalculating, setIsCalculating] = useState(false);
   const [calculatedResults, setCalculatedResults] = useState<any>(null);
+  const [masterData, setMasterData] = useState<any>(null);
+
+  // Load CSV data on mount
+  useEffect(() => {
+    loadGrowthData().then(data => setMasterData(data));
+  }, []);
 
   const handleCalculate = (e: React.MouseEvent) => {
     e.preventDefault();
+    if (!masterData) return;
+
     const age = parseFloat(ageMonths);
     const weight = parseFloat(weightKg);
     const height = parseFloat(heightCm);
@@ -35,19 +43,15 @@ export default function CalculatorForm() {
     setIsCalculating(true);
 
     setTimeout(() => {
-      const ageDays = age * 30.4375;
+      // In CSV, data is per month, so we keep age as is
       try {
-        const wfaData = gender === 'male' ? wfa_boys : wfa_girls;
-        const hfaData = gender === 'male' ? hfa_boys : hfa_girls;
-        const wfhData = gender === 'male' ? wfh_boys : wfh_girls;
-
-        const wfaParams = findGrowthParameters(ageDays, wfaData, 'day');
+        const wfaParams = findGrowthParameters(age, masterData.wfa, 'day');
         const wfaZ = calculateZScore(weight, wfaParams);
 
-        const hfaParams = findGrowthParameters(ageDays, hfaData, 'day');
+        const hfaParams = findGrowthParameters(age, masterData.hfa, 'day');
         const hfaZ = calculateZScore(height, hfaParams);
 
-        const wfhParams = findGrowthParameters(height, wfhData, 'height');
+        const wfhParams = findGrowthParameters(height, masterData.wfh, 'height');
         const wfhZ = calculateZScore(weight, wfhParams);
 
         setCalculatedResults({
@@ -57,7 +61,8 @@ export default function CalculatorForm() {
           heightCm,
           wfa: { z: wfaZ, status: getStatusWFA(wfaZ) },
           hfa: { z: hfaZ, status: getStatusHFA(hfaZ) },
-          wfh: { z: wfhZ, status: getStatusWFH(wfhZ) }
+          wfh: { z: wfhZ, status: getStatusWFH(wfhZ) },
+          charts: masterData // pass master data for charts
         });
       } catch (e) {
         console.error(e);
@@ -214,8 +219,8 @@ export default function CalculatorForm() {
                   <div className="h-[300px] w-full">
                     <GrowthChart 
                       title="Grafik Berat menurut Umur"
-                      data={calculatedResults.gender === 'male' ? wfa_boys : wfa_girls}
-                      childPoint={{ x: parseFloat(calculatedResults.ageMonths) * 30.4375, y: parseFloat(calculatedResults.weightKg) }}
+                      data={calculatedResults.charts.wfa}
+                      childPoint={{ x: parseFloat(calculatedResults.ageMonths), y: parseFloat(calculatedResults.weightKg) }}
                       xKey="day"
                       yLabel="Berat (kg)"
                       gender={calculatedResults.gender}
@@ -238,8 +243,8 @@ export default function CalculatorForm() {
                   <div className="h-[300px] w-full">
                     <GrowthChart 
                       title="Grafik Tinggi menurut Umur"
-                      data={calculatedResults.gender === 'male' ? hfa_boys : hfa_girls}
-                      childPoint={{ x: parseFloat(calculatedResults.ageMonths) * 30.4375, y: parseFloat(calculatedResults.heightCm) }}
+                      data={calculatedResults.charts.hfa}
+                      childPoint={{ x: parseFloat(calculatedResults.ageMonths), y: parseFloat(calculatedResults.heightCm) }}
                       xKey="day"
                       yLabel="Tinggi (cm)"
                       gender={calculatedResults.gender}
@@ -262,7 +267,7 @@ export default function CalculatorForm() {
                   <div className="h-[300px] w-full">
                     <GrowthChart 
                       title="Grafik Berat menurut Tinggi"
-                      data={calculatedResults.gender === 'male' ? wfh_boys : wfh_girls}
+                      data={calculatedResults.charts.wfh}
                       childPoint={{ x: parseFloat(calculatedResults.heightCm), y: parseFloat(calculatedResults.weightKg) }}
                       xKey="height"
                       yLabel="Berat (kg)"
