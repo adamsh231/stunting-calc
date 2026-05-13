@@ -82,11 +82,11 @@ export default function GrowthChart({ data, childPoint, xKey, yLabel, title, gen
 
   const chartData: ChartData<'line'> = useMemo(() => {
     const labels = data.map(d => d[xKey]);
-    const m3sd = data.map(d => d.median - (3 * d.sd));
-    const m2sd = data.map(d => d.median - (2 * d.sd));
+    const m3sd = data.map(d => d.sd3neg);
+    const m2sd = data.map(d => d.sd2neg);
     const median = data.map(d => d.median);
-    const p2sd = data.map(d => d.median + (2 * d.sd));
-    const p3sd = data.map(d => d.median + (3 * d.sd));
+    const p2sd = data.map(d => d.sd2pos);
+    const p3sd = data.map(d => d.sd3pos);
 
     const childData = useMemo(() => {
       if (!childPoint) return [];
