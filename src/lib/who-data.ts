@@ -1,113 +1,59 @@
+// Standar WHO 2020 - Tabel SD
+// Data diperluas sampai 5 tahun (60 bulan / 1825 hari)
+// BB/U (Berat menurut Umur) - Laki-laki
 export const wfa_boys = [
-  { day: 0, l: 0.3487, m: 3.3464, s: 0.14602 },
-  { day: 30, l: 0.2520, m: 4.3323, s: 0.13451 },
-  { day: 60, l: 0.1541, m: 5.2341, s: 0.12602 },
-  { day: 91, l: 0.0558, m: 6.0123, s: 0.12034 },
-  { day: 121, l: -0.0410, m: 6.6781, s: 0.11654 },
-  { day: 152, l: -0.1341, m: 7.2423, s: 0.11342 },
-  { day: 182, l: -0.2223, m: 7.7123, s: 0.11054 },
-  { day: 213, l: -0.3012, m: 8.1231, s: 0.10821 },
-  { day: 243, l: -0.3721, m: 8.5123, s: 0.10642 },
-  { day: 274, l: -0.4352, m: 8.8542, s: 0.10512 },
-  { day: 304, l: -0.4912, m: 9.1723, s: 0.10412 },
-  { day: 335, l: -0.5412, m: 9.4721, s: 0.10321 },
-  { day: 365, l: -0.5842, m: 9.7523, s: 0.10254 },
-  { day: 456, l: -0.6821, m: 10.5123, s: 0.10123 },
-  { day: 547, l: -0.7612, m: 11.2312, s: 0.10042 },
-  { day: 639, l: -0.8321, m: 11.9123, s: 0.09984 },
-  { day: 730, l: -0.8912, m: 12.5521, s: 0.09942 }
+  { day: 0, median: 3.3, sd1pos: 3.9, sd1neg: 2.9, sd2pos: 4.4, sd2neg: 2.5, sd3pos: 5.0, sd3neg: 2.1 },
+  { day: 365, median: 9.6, sd1pos: 10.8, sd1neg: 8.6, sd2pos: 12.0, sd2neg: 7.7, sd3pos: 13.3, sd3neg: 7.0 },
+  { day: 730, median: 12.2, sd1pos: 13.6, sd1neg: 10.8, sd2pos: 15.3, sd2neg: 9.7, sd3pos: 17.0, sd3neg: 8.6 },
+  { day: 1095, median: 14.3, sd1pos: 16.2, sd1neg: 12.7, sd2pos: 18.3, sd2neg: 11.3, sd3pos: 20.7, sd3neg: 10.0 },
+  { day: 1460, median: 16.3, sd1pos: 18.5, sd1neg: 14.4, sd2pos: 21.2, sd2neg: 12.7, sd3pos: 24.2, sd3neg: 11.4 },
+  { day: 1825, median: 18.3, sd1pos: 21.0, sd1neg: 16.0, sd2pos: 24.2, sd2neg: 14.1, sd3pos: 27.9, sd3neg: 12.4 }
 ];
 
+// TB/U (Tinggi menurut Umur) - Laki-laki
 export const hfa_boys = [
-  { day: 0, l: 1.0, m: 49.884, s: 0.03795 },
-  { day: 30, l: 1.0, m: 53.729, s: 0.03542 },
-  { day: 60, l: 1.0, m: 57.065, s: 0.03365 },
-  { day: 91, l: 1.0, m: 59.882, s: 0.03234 },
-  { day: 121, l: 1.0, m: 62.332, s: 0.03132 },
-  { day: 152, l: 1.0, m: 64.521, s: 0.03051 },
-  { day: 182, l: 1.0, m: 66.523, s: 0.02984 },
-  { day: 213, l: 1.0, m: 68.321, s: 0.02932 },
-  { day: 243, l: 1.0, m: 70.012, s: 0.02891 },
-  { day: 274, l: 1.0, m: 71.552, s: 0.02854 },
-  { day: 304, l: 1.0, m: 73.012, s: 0.02823 },
-  { day: 335, l: 1.0, m: 74.421, s: 0.02798 },
-  { day: 365, l: 1.0, m: 75.752, s: 0.02778 },
-  { day: 456, l: 1.0, m: 79.412, s: 0.02721 },
-  { day: 547, l: 1.0, m: 82.652, s: 0.02692 },
-  { day: 639, l: 1.0, m: 85.612, s: 0.02672 },
-  { day: 730, l: 1.0, m: 88.321, s: 0.02654 }
+  { day: 0, median: 49.9, sd1pos: 51.7, sd1neg: 48.0, sd2pos: 53.4, sd2neg: 46.1, sd3pos: 55.2, sd3neg: 44.2 },
+  { day: 365, median: 75.7, sd1pos: 78.1, sd1neg: 73.4, sd2pos: 80.5, sd2neg: 71.0, sd3pos: 82.9, sd3neg: 68.6 },
+  { day: 730, median: 87.8, sd1pos: 90.5, sd1neg: 85.1, sd2pos: 93.2, sd2neg: 82.3, sd3pos: 95.9, sd3neg: 79.6 },
+  { day: 1095, median: 96.1, sd1pos: 99.1, sd1neg: 93.0, sd2pos: 102.2, sd2neg: 89.9, sd3pos: 105.2, sd3neg: 86.8 },
+  { day: 1460, median: 103.3, sd1pos: 106.7, sd1neg: 99.9, sd2pos: 110.1, sd2neg: 96.5, sd3pos: 113.6, sd3neg: 93.1 },
+  { day: 1825, median: 110.0, sd1pos: 113.7, sd1neg: 106.2, sd2pos: 117.5, sd2neg: 102.5, sd3pos: 121.2, sd3neg: 98.7 }
 ];
 
+// BB/TB (Berat menurut Tinggi) - Laki-laki
 export const wfh_boys = [
-  { height: 45.0, l: -0.3521, m: 2.4352, s: 0.0912 },
-  { height: 50.0, l: -0.3521, m: 3.3214, s: 0.0912 },
-  { height: 55.0, l: -0.3521, m: 4.5231, s: 0.0912 },
-  { height: 60.0, l: -0.3521, m: 5.8523, s: 0.0912 },
-  { height: 65.0, l: -0.3521, m: 7.2142, s: 0.0912 },
-  { height: 70.0, l: -0.3521, m: 8.5231, s: 0.0912 },
-  { height: 75.0, l: -0.3521, m: 9.7123, s: 0.0912 },
-  { height: 80.0, l: -0.3521, m: 10.8231, s: 0.0912 },
-  { height: 85.0, l: -0.3521, m: 11.8542, s: 0.0912 },
-  { height: 90.0, l: -0.3521, m: 12.8231, s: 0.0912 },
-  { height: 95.0, l: -0.3521, m: 13.7521, s: 0.0912 },
-  { height: 100.0, l: -0.3521, m: 14.6523, s: 0.0912 },
-  { height: 105.0, l: -0.3521, m: 15.5121, s: 0.0912 },
-  { height: 110.0, l: -0.3521, m: 16.3523, s: 0.0912 }
+  { height: 45, median: 2.4, sd1pos: 2.7, sd1neg: 2.2, sd2pos: 3.0, sd2neg: 2.0, sd3pos: 3.3, sd3neg: 1.9 },
+  { height: 65, median: 7.0, sd1pos: 7.7, sd1neg: 6.3, sd2pos: 8.4, sd2neg: 5.8, sd3pos: 9.3, sd3neg: 5.3 },
+  { height: 85, median: 11.5, sd1pos: 12.6, sd1neg: 10.5, sd2pos: 13.7, sd2neg: 9.6, sd3pos: 15.0, sd3neg: 8.8 },
+  { height: 100, median: 15.3, sd1pos: 16.8, sd1neg: 13.9, sd2pos: 18.5, sd2neg: 12.7, sd3pos: 20.5, sd3neg: 11.6 },
+  { height: 110, median: 18.3, sd1pos: 20.3, sd1neg: 16.5, sd2pos: 22.5, sd2neg: 14.9, sd3pos: 25.1, sd3neg: 13.5 }
 ];
 
+// BB/U (Berat menurut Umur) - Perempuan
 export const wfa_girls = [
-  { day: 0, l: 0.3487, m: 3.2464, s: 0.14602 },
-  { day: 30, l: 0.2520, m: 4.1323, s: 0.13451 },
-  { day: 60, l: 0.1541, m: 4.9341, s: 0.12602 },
-  { day: 91, l: 0.0558, m: 5.6123, s: 0.12034 },
-  { day: 121, l: -0.0410, m: 6.2781, s: 0.11654 },
-  { day: 152, l: -0.1341, m: 6.8423, s: 0.11342 },
-  { day: 182, l: -0.2223, m: 7.3123, s: 0.11054 },
-  { day: 213, l: -0.3012, m: 7.7231, s: 0.10821 },
-  { day: 243, l: -0.3721, m: 8.1123, s: 0.10642 },
-  { day: 274, l: -0.4352, m: 8.4542, s: 0.10512 },
-  { day: 304, l: -0.4912, m: 8.7723, s: 0.10412 },
-  { day: 335, l: -0.5412, m: 9.0721, s: 0.10321 },
-  { day: 365, l: -0.5842, m: 9.3523, s: 0.10254 },
-  { day: 456, l: -0.6821, m: 10.1123, s: 0.10123 },
-  { day: 547, l: -0.7612, m: 10.8312, s: 0.10042 },
-  { day: 639, l: -0.8321, m: 11.5123, s: 0.09984 },
-  { day: 730, l: -0.8912, m: 12.1521, s: 0.09942 }
+  { day: 0, median: 3.2, sd1pos: 3.7, sd1neg: 2.8, sd2pos: 4.2, sd2neg: 2.4, sd3pos: 4.8, sd3neg: 2.0 },
+  { day: 365, median: 8.9, sd1pos: 10.1, sd1neg: 7.9, sd2pos: 11.5, sd2neg: 7.0, sd3pos: 13.1, sd3neg: 6.3 },
+  { day: 730, median: 11.5, sd1pos: 13.0, sd1neg: 10.2, sd2pos: 14.8, sd2neg: 9.0, sd3pos: 16.8, sd3neg: 8.1 },
+  { day: 1095, median: 13.9, sd1pos: 15.8, sd1neg: 12.2, sd2pos: 18.1, sd2neg: 10.8, sd3pos: 20.8, sd3neg: 9.4 },
+  { day: 1460, median: 16.1, sd1pos: 18.5, sd1neg: 14.0, sd2pos: 21.5, sd2neg: 12.3, sd3pos: 24.9, sd3neg: 10.8 },
+  { day: 1825, median: 18.2, sd1pos: 21.2, sd1neg: 15.8, sd2pos: 24.9, sd2neg: 13.7, sd3pos: 29.5, sd3neg: 12.0 }
 ];
 
+// TB/U (Tinggi menurut Umur) - Perempuan
 export const hfa_girls = [
-  { day: 0, l: 1.0, m: 49.184, s: 0.03795 },
-  { day: 30, l: 1.0, m: 52.929, s: 0.03542 },
-  { day: 60, l: 1.0, m: 56.165, s: 0.03365 },
-  { day: 91, l: 1.0, m: 58.882, s: 0.03234 },
-  { day: 121, l: 1.0, m: 61.232, s: 0.03132 },
-  { day: 152, l: 1.0, m: 63.321, s: 0.03051 },
-  { day: 182, l: 1.0, m: 65.223, s: 0.02984 },
-  { day: 213, l: 1.0, m: 67.021, s: 0.02932 },
-  { day: 243, l: 1.0, m: 68.712, s: 0.02891 },
-  { day: 274, l: 1.0, m: 70.252, s: 0.02854 },
-  { day: 304, l: 1.0, m: 71.712, s: 0.02823 },
-  { day: 335, l: 1.0, m: 73.121, s: 0.02798 },
-  { day: 365, l: 1.0, m: 74.452, s: 0.02778 },
-  { day: 456, l: 1.0, m: 78.112, s: 0.02721 },
-  { day: 547, l: 1.0, m: 81.352, s: 0.02692 },
-  { day: 639, l: 1.0, m: 84.312, s: 0.02672 },
-  { day: 730, l: 1.0, m: 87.021, s: 0.02654 }
+  { day: 0, median: 49.1, sd1pos: 50.9, sd1neg: 47.3, sd2pos: 52.7, sd2neg: 45.4, sd3pos: 54.4, sd3neg: 43.6 },
+  { day: 365, median: 74.0, sd1pos: 76.4, sd1neg: 71.6, sd2pos: 78.9, sd2neg: 69.2, sd3pos: 81.3, sd3neg: 66.8 },
+  { day: 730, median: 86.4, sd1pos: 89.2, sd1neg: 83.6, sd2pos: 91.9, sd2neg: 80.7, sd3pos: 94.7, sd3neg: 77.9 },
+  { day: 1095, median: 95.1, sd1pos: 98.2, sd1neg: 91.9, sd2pos: 101.4, sd2neg: 88.8, sd3pos: 104.5, sd3neg: 85.6 },
+  { day: 1460, median: 102.7, sd1pos: 106.3, sd1neg: 99.1, sd2pos: 109.9, sd2neg: 95.4, sd3pos: 113.4, sd3neg: 91.8 },
+  { day: 1825, median: 109.4, sd1pos: 113.3, sd1neg: 105.4, sd2pos: 117.3, sd2neg: 101.5, sd3pos: 121.2, sd3neg: 97.6 }
 ];
 
+// BB/TB (Berat menurut Tinggi) - Perempuan
 export const wfh_girls = [
-  { height: 45.0, l: -0.3521, m: 2.3352, s: 0.0912 },
-  { height: 50.0, l: -0.3521, m: 3.2214, s: 0.0912 },
-  { height: 55.0, l: -0.3521, m: 4.3231, s: 0.0912 },
-  { height: 60.0, l: -0.3521, m: 5.6523, s: 0.0912 },
-  { height: 65.0, l: -0.3521, m: 6.9142, s: 0.0912 },
-  { height: 70.0, l: -0.3521, m: 8.1231, s: 0.0912 },
-  { height: 75.0, l: -0.3521, m: 9.3123, s: 0.0912 },
-  { height: 80.0, l: -0.3521, m: 10.4231, s: 0.0912 },
-  { height: 85.0, l: -0.3521, m: 11.4542, s: 0.0912 },
-  { height: 90.0, l: -0.3521, m: 12.4231, s: 0.0912 },
-  { height: 95.0, l: -0.3521, m: 13.3521, s: 0.0912 },
-  { height: 100.0, l: -0.3521, m: 14.2523, s: 0.0912 },
-  { height: 105.0, l: -0.3521, m: 15.1121, s: 0.0912 },
-  { height: 110.0, l: -0.3521, m: 15.9523, s: 0.0912 }
+  { height: 45, median: 2.3, sd1pos: 2.6, sd1neg: 2.1, sd2pos: 2.9, sd2neg: 1.9, sd3pos: 3.3, sd3neg: 1.7 },
+  { height: 65, median: 6.7, sd1pos: 7.4, sd1neg: 6.0, sd2pos: 8.2, sd2neg: 5.5, sd3pos: 9.1, sd3neg: 5.0 },
+  { height: 85, median: 11.1, sd1pos: 12.3, sd1neg: 10.1, sd2pos: 13.6, sd2neg: 9.2, sd3pos: 15.1, sd3neg: 8.4 },
+  { height: 100, median: 15.1, sd1pos: 16.7, sd1neg: 13.7, sd2pos: 18.6, sd2neg: 12.4, sd3pos: 20.7, sd3neg: 11.2 },
+  { height: 110, median: 18.2, sd1pos: 20.4, sd1neg: 16.4, sd2pos: 22.8, sd2neg: 14.7, sd3pos: 25.6, sd3neg: 13.2 }
 ];

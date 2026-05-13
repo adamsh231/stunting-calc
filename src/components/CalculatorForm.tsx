@@ -1,12 +1,12 @@
 'use client';
 
 import React, { useState } from 'react';
-import { 
-  calculateZScore, 
-  findLMS, 
-  getStatusWFA, 
-  getStatusHFA, 
-  getStatusWFH 
+import {
+  calculateZScore,
+  findGrowthParameters,
+  getStatusWFA,
+  getStatusHFA,
+  getStatusWFH
 } from '@/lib/growth-utils';
 import { wfa_boys, hfa_boys, wfh_boys, wfa_girls, hfa_girls, wfh_girls } from '@/lib/who-data';
 import GrowthChart from './GrowthChart';
@@ -41,14 +41,14 @@ export default function CalculatorForm() {
         const hfaData = gender === 'male' ? hfa_boys : hfa_girls;
         const wfhData = gender === 'male' ? wfh_boys : wfh_girls;
 
-        const wfaLMS = findLMS(ageDays, wfaData, 'day');
-        const wfaZ = calculateZScore(weight, wfaLMS);
+        const wfaParams = findGrowthParameters(ageDays, wfaData, 'day');
+        const wfaZ = calculateZScore(weight, wfaParams);
 
-        const hfaLMS = findLMS(ageDays, hfaData, 'day');
-        const hfaZ = calculateZScore(height, hfaLMS);
+        const hfaParams = findGrowthParameters(ageDays, hfaData, 'day');
+        const hfaZ = calculateZScore(height, hfaParams);
 
-        const wfhLMS = findLMS(height, wfhData, 'height');
-        const wfhZ = calculateZScore(weight, wfhLMS);
+        const wfhParams = findGrowthParameters(height, wfhData, 'height');
+        const wfhZ = calculateZScore(weight, wfhParams);
 
         setCalculatedResults({
           gender,

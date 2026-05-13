@@ -1,71 +1,56 @@
 /**
- * WHO Growth Standard Z-Score Calculation (LMS Method)
- * Z = [((Value/M)^L) - 1] / (L * S)
+ * Kemenkes RI / WHO Growth Standard Z-Score Calculation
+ * Formula based on Permenkes No. 2 Tahun 2020
  */
 
-export interface LMSData {
-  l: number;
-  m: number;
-  s: number;
+export interface GrowthData {
+  median: number;
+  sd1pos: number;
+  sd1neg: number;
+  sd2pos: number;
+  sd2neg: number;
+  sd3pos: number;
+  sd3neg: number;
   [key: string]: number;
 }
 
 /**
- * Calculates the Z-score for a given value using LMS parameters.
+ * Calculates the Z-score using the Standard Deviation method.
+ * If Value > Median: Z = (Value - Median) / (SD1pos - Median)
+ * If Value < Median: Z = (Value - Median) / (Median - SD1neg)
  */
-export function calculateZScore(value: number, lms: LMSData): number {
-  const { l, m, s } = lms;
+export function calculateZScore(value: number, data: GrowthData): number {
+  const { median, sd1pos, sd1neg } = data;
   
-  // Handling extremely low values (e.g. 0) to avoid math errors
-  const val = Math.max(value, 0.0001);
+  if (value === median) return 0;
   
-  let z = 0;
-  try {
-    if (Math.abs(l) < 0.0001) {
-      z = Math.log(val / m) / s;
-    } else {
-      z = (Math.pow(val / m, l) - 1) / (l * s);
-    }
-
-    /**
-     * WHO adjustment for Z-scores > 3 or < -3
-     * This is part of the WHO Child Growth Standards to avoid stretching the tails
-     */
-    if (z > 3) {
-      const sd3pos = m * Math.pow(1 + l * s * 3, 1 / l);
-      const sd2pos = m * Math.pow(1 + l * s * 2, 1 / l);
-      const sdDiff = sd3pos - sd2pos;
-      return 3 + (val - sd3pos) / sdDiff;
-    } else if (z < -3) {
-      const sd3neg = m * Math.pow(1 + l * s * (-3), 1 / l);
-      const sd2neg = m * Math.pow(1 + l * s * (-2), 1 / l);
-      const sdDiff = sd2neg - sd3neg;
-      return -3 + (val - sd3neg) / sdDiff;
-    }
-  } catch (e) {
-    // If the math results in NaN or complex numbers, return the basic z
-    console.error("Z-Score adjustment error", e);
+  if (value > median) {
+    return (value - median) / (sd1pos - median);
+  } else {
+    return (value - median) / (median - sd1neg);
   }
-
-  return z;
 }
 
 /**
  * Linear interpolation between two data points.
  */
-export function interpolateLMS(x: number, x1: number, x2: number, lms1: LMSData, lms2: LMSData): LMSData {
+export function interpolateGrowthData(x: number, x1: number, x2: number, d1: GrowthData, d2: GrowthData): GrowthData {
   const factor = (x - x1) / (x2 - x1);
   return {
-    l: lms1.l + (lms2.l - lms1.l) * factor,
-    m: lms1.m + (lms2.m - lms1.m) * factor,
-    s: lms1.s + (lms2.s - lms1.s) * factor,
+    median: d1.median + (d2.median - d1.median) * factor,
+    sd1pos: d1.sd1pos + (d2.sd1pos - d1.sd1pos) * factor,
+    sd1neg: d1.sd1neg + (d2.sd1neg - d1.sd1neg) * factor,
+    sd2pos: d1.sd2pos + (d2.sd2pos - d1.sd2pos) * factor,
+    sd2neg: d1.sd2neg + (d2.sd2neg - d1.sd2neg) * factor,
+    sd3pos: d1.sd3pos + (d2.sd3pos - d1.sd3pos) * factor,
+    sd3neg: d1.sd3neg + (d2.sd3neg - d1.sd3neg) * factor,
   };
 }
 
 /**
- * Finds the appropriate LMS parameters for a given age or height.
+ * Finds the appropriate Growth parameters for a given age or height.
  */
-export function findLMS(value: number, dataset: LMSData[], key: string): LMSData {
+export function findGrowthParameters(value: number, dataset: GrowthData[], key: string): GrowthData {
   if (!dataset || dataset.length === 0) {
     throw new Error(`Dataset for ${key} is empty or undefined`);
   }
@@ -84,32 +69,8 @@ export function findLMS(value: number, dataset: LMSData[], key: string): LMSData
   const d1 = sorted[index - 1];
   const d2 = sorted[index];
 
-  return interpolateLMS(value, d1[key], d2[key], d1, d2);
+  return interpolateGrowthData(value, d1[key], d2[key], d1, d2);
 }
-
-/**
- * Nutritional Status Classifications (Kemenkes 2020)
- * 
- * BB/U (Weight-for-Age):
- * < -3 SD: Berat badan sangat kurang (Severely Underweight)
- * -3 SD sd < -2 SD: Berat badan kurang (Underweight)
- * -2 SD sd +1 SD: Berat badan normal
- * > +1 SD: Risiko Berat badan lebih
- * 
- * TB/U (Height-for-Age):
- * < -3 SD: Sangat pendek (Severely Stunted)
- * -3 SD sd < -2 SD: Pendek (Stunted)
- * -2 SD sd +3 SD: Normal
- * > +3 SD: Tinggi
- * 
- * BB/TB (Weight-for-Height):
- * < -3 SD: Gizi buruk (Severely Wasted)
- * -3 SD sd < -2 SD: Gizi kurang (Wasted)
- * -2 SD sd +1 SD: Gizi baik (Normal)
- * > +1 SD sd +2 SD: Berisiko gizi lebih (At risk of overweight)
- * > +2 SD sd +3 SD: Gizi lebih (Overweight)
- * > +3 SD: Obesitas (Obese)
- */
 
 export function getStatusWFA(zScore: number): string {
   if (zScore < -3) return "Berat badan sangat kurang (Severely Underweight)";
